@@ -201,7 +201,7 @@ int set_fen(const char* fen)
 		newpos.pieces[WHITE][i] = NOSQUARE;
 	}
 
-    skip_spaces(&fen);
+    skip_spaces((char**)&fen);
 
     int pawn_count[2] = { 0 };
 	int pi[2] = { 0 };
@@ -294,7 +294,7 @@ add_piece:
 	if (pawn_count[WHITE] > 8 || pawn_count[BLACK] > 8)
         return FEN_ILLEGAL_TOO_MANY_PAWNS;
 
-    if (!skip_spaces(&fen))
+    if (!skip_spaces((char**)&fen))
         return FEN_INVALID_MISSING_SIDE_TO_MOVE;
 
     if (*fen == 'w')
@@ -309,7 +309,7 @@ add_piece:
 
     fen++;
 
-    if (!skip_spaces(&fen))
+    if (!skip_spaces((char**)&fen))
         return FEN_INVALID_MISSING_CASTLING_RIGHTS;
 
     if (*fen != '-')
@@ -334,7 +334,7 @@ add_piece:
     else
         fen++;
 
-    if (!skip_spaces(&fen))
+    if (!skip_spaces((char**)&fen))
         return FEN_INVALID_MISSING_EN_PASSANT;
 
     if (*fen != '-')
@@ -356,15 +356,15 @@ add_piece:
     else
         fen++;
 
-    skip_spaces(&fen);
+    skip_spaces((char**)&fen);
 
     if (*fen >= '0' && *fen <= '9')	// optional half move count
     {
-        newpos.half_moves = read_num(&fen);
+        newpos.half_moves = read_num((char**)&fen);
 
-		skip_spaces(&fen);
+		skip_spaces((char**)&fen);
 		if (*fen >= '0' && *fen <= '9')
-            newpos.nmove = read_num(&fen);
+            newpos.nmove = read_num((char**)&fen);
     }
 
     position_t backup;

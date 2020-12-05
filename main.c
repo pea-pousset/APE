@@ -343,9 +343,12 @@ void help()
     printf("undo:      \n");
     printf("print:          Display the board. Alternatively you can just press 'enter'\n");
     printf("                without entering a command.\n");
+    printf("depth <depth>:  Sets the max depth at which the engine will search moves (1-%d).\n", MAX_DEPTH);
+    printf("time [seconds]: Sets the max search time - no value means infinite time until max depth is reached.\n");
     printf("arbiter:        Activate the arbiter mode.\n");
     printf("perft <depth>:  Run a performance test down to the chosen depth (1-%d).\n", MAX_DEPTH);
     printf("divide <depth>: Run a detailed performance test down to the chosen depth (1-%d).\n", MAX_DEPTH);
+    printf("bench:          Run a performance test evaluating a position\n");
     printf("help:           Display this message.\n");
     printf("quit:           :(\n\n");
 }

@@ -6,7 +6,8 @@
 #define VERSION_MAJOR   0
 #define VERSION_MINOR   3
 
-#define MAX_DEPTH   7
+#define INIT_DEPTH  6
+#define MAX_DEPTH   20
 #define INF_TIME    1000000
 
 typedef enum

@@ -24,11 +24,12 @@ int valid_move_format(const char* str);
 int xboard()
 {
     setbuf(stdout, NULL);
+    signal(SIGINT, SIG_IGN);
     reset();
     engine_mode = xboard_;
     engine_side = black;
     stop_time = INF_TIME;
-    stop_depth = MAX_DEPTH;
+    stop_depth = INIT_DEPTH;
 
     putchar('\n');
 

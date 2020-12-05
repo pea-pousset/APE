@@ -37,7 +37,7 @@ int main(int argc, char** argv)
     engine_side = black;
     engine_is_thinking = 0;
     stop_time = INF_TIME;
-    stop_depth = MAX_DEPTH;
+    stop_depth = INIT_DEPTH;
     white_clock.tc = unlimited;
     black_clock.tc = unlimited;
 
@@ -338,7 +338,7 @@ void bench()
     int st = stop_time;
     int sd = stop_depth;
     stop_time = INF_TIME;
-    stop_depth = 7;
+    stop_depth = 6;
     int best_time = INF_TIME * 1000;
     int worst_time = 0;
     for (int i = 0; i < 5; i++)

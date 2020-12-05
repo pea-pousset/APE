@@ -21,7 +21,7 @@ static jmp_buf env;
 static int nodes;
 static int follow_pv;
 static move_t pv[MAX_DEPTH][MAX_DEPTH];
-static int pv_len[MAX_DEPTH];
+static int pv_len[MAX_DEPTH + 1];
 
 static void print_pvline();
 static void root(int depth);
@@ -80,7 +80,7 @@ void search()
     {
         int in = abs(MATE) - abs(search_info.score) - 1;
         in = in / 2 + in % 2;
-        if (in)
+        if (in > 0)
             printf("Mate in %d\n\n", in);
         else
             printf("CHECKMATE\n");

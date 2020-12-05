@@ -58,43 +58,14 @@ int main(int argc, char** argv)
     // set_fen("3k4/1P4p1/2P3P1/8/8/4p1p1/2p1p1Pp/4K3 w - - 0 1 "); // GOOD PAWN STRUCT TEST
     // set_fen("8/p4ppk/1p6/2p1r3/2P2n2/P4P1p/5P1P/2q2K2 w - - 0 50 ");
 
-    if (argc > 1)
-    {
-        for (unsigned i = 1; i < argc; i++)
-        {
-            char* p = argv[i];
-            while (*p == '-')
-                p++;
-
-            if (strncmp(p, "gui", 3) == 0)
-            {
-                #ifdef WIN32
-                launch_gui();
-                #endif
-            }
-        }
-    }
 
     cmd[0] = 0;
     int loop = 1;
     char* pcmd;
     do
     {
-        #ifdef WIN32
-        if (engine_mode == win32)
-        {
-            while (!gui_get_message(cmd) || !*cmd)
-            {
-                /* wait for initial sync */
-            }
-            printf("[GUI MESSAGE: \"%s\"]\n", cmd);
-        }
-        else
-        #endif
-        {
-            printf("> ");
-            fgets(cmd, CMD_BUFSIZE, stdin);
-        }
+        printf("> ");
+        fgets(cmd, CMD_BUFSIZE, stdin);
 
         pcmd = cmd;
         skip_spaces(&pcmd);
@@ -116,12 +87,6 @@ int main(int argc, char** argv)
             reset();
             print();
             engine_side = black;
-            #ifdef WIN32
-            if (engine_mode == win32)
-                engine_side = arbiter;
-            gui_update(NULL);
-            gui_send_message("ok");
-            #endif
         }
         else if (strncmp(pcmd, "undo", 4) == 0)
         {

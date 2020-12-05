@@ -59,7 +59,7 @@ void search()
         return ;
     }
 
-    if (engine_mode != xboard_)
+    if ((engine_mode != xboard_) && (!engine_quiet))
     {
         printf("Ply  Nodes      Score   PV\n");
         printf("---  -----      -----   --\n");
@@ -75,7 +75,7 @@ void search()
             break;
     }
 
-    if (engine_mode != xboard_
+    if ((engine_mode != xboard_) && (!engine_quiet)
         && (search_info.score > 9000 || search_info.score < -9000))
     {
         int in = abs(MATE) - abs(search_info.score) - 1;
@@ -95,8 +95,12 @@ void search()
 void print_pvline()
 {
     int time = (get_time_ms() - search_info.start_time);
+
     if (engine_mode != xboard_)
     {
+        if (engine_quiet)
+            return;
+        
         printf("%-3d  %-9d  %-+6.2f  ",
                search_info.depth,
                search_info.nodes,

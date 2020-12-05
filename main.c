@@ -32,6 +32,7 @@ int main(int argc, char** argv)
     reset();
     initial_hash = pos.hash;    // save the initial position hash
 
+    engine_quiet = 0;
     engine_mode = console;
     engine_side = black;
     engine_is_thinking = 0;
@@ -117,7 +118,7 @@ int main(int argc, char** argv)
             {
                 white_clock.tc = fixed_move;
                 black_clock.tc = fixed_move;
-                printf("Search time set to %d seconds.\n\n", stop_time);
+                printf("Search time set to %d seconds.\n\n", stop_time / 1000);
             }
 
         }
@@ -176,6 +177,27 @@ int main(int argc, char** argv)
         else if (strncmp(pcmd, "bench", 5) == 0)
         {
             bench();
+        }
+        else if (strncmp(pcmd, "quiet", 5) == 0)
+        {
+            pcmd += 5;
+            
+            while (*pcmd && isspace(*pcmd))
+                pcmd++;
+            
+            if (strncmp(pcmd, "off", 3) == 0)
+            {
+                engine_quiet = 0;
+            }
+            else if (strncmp(pcmd, "on", 2) == 0)
+            {
+                engine_quiet = 1;
+            }
+            else
+            {
+                printf("Invalid command.\n");
+            }
+            
         }
         else if (strncmp(pcmd, "go", 2) == 0)
         {

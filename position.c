@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "search.h"
 #include "transposition.h"
+#include "engine.h"
 #include "errors.h"
 
 #include <stdio.h>
@@ -22,6 +23,18 @@ static void clear();
  *//*=========================================================================*/
 void print()
 {
+    move_t lastm = last_move();
+
+    if (engine_quiet)
+    {
+        if (lastm.b.from != NOSQUARE)
+        {
+            printf("%s\n", move_to_str(lastm));
+        }
+        return;
+    }
+
+    putchar('\n');
     for (int r = _8; r >= _1; r--)
     {
         printf("   +---+---+---+---+---+---+---+---+\n");
@@ -43,10 +56,16 @@ void print()
 
         if (r == _8)
         {
+            char movestr[24] = { 0 };
+            if (lastm.b.from != NOSQUARE)
+            {
+                sprintf(movestr, "- Last move: %s", move_to_str(lastm));
+            }
+
             if (pos.side_to_move == WHITE)
-                printf("%d. White to move", pos.nmove);
+                printf("%d. White to move %s", pos.nmove, movestr);
             else
-                printf("%d. Black to move", pos.nmove);
+                printf("%d. Black to move %s", pos.nmove, movestr);
         }
         else if (r == _7)
         {

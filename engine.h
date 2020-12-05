@@ -21,6 +21,7 @@ typedef enum
 } engine_side_t;
 
 extern int nopost;  // xboard.c, turn off thinking output
+extern int engine_quiet;   // CLI mode, turn off thinking output and board display
 
 extern chessclock_t  white_clock;
 extern chessclock_t  black_clock;

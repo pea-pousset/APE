@@ -1,5 +1,6 @@
 #include "engine.h"
 
+int           engine_quiet;
 engine_side_t engine_side;
 engine_mode_t engine_mode;
 int           engine_is_thinking;

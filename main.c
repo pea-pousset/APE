@@ -103,6 +103,10 @@ int main(int argc, char** argv)
         {
             print();
         }
+        else if (strncmp(pcmd, "fen", 3) == 0)
+        {
+            printf("%s\n\n", get_fen());
+        }
         else if (strncmp(pcmd, "time", 4) == 0)
         {
             pcmd += 4;
@@ -181,10 +185,10 @@ int main(int argc, char** argv)
         else if (strncmp(pcmd, "quiet", 5) == 0)
         {
             pcmd += 5;
-            
+
             while (*pcmd && isspace(*pcmd))
                 pcmd++;
-            
+
             if (strncmp(pcmd, "off", 3) == 0)
             {
                 engine_quiet = 0;
@@ -197,7 +201,7 @@ int main(int argc, char** argv)
             {
                 printf("Invalid command.\n");
             }
-            
+
         }
         else if (strncmp(pcmd, "go", 2) == 0)
         {
@@ -374,5 +378,3 @@ void help()
     printf("help:           Display this message.\n");
     printf("quit:           :(\n\n");
 }
-
-

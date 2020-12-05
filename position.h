@@ -44,16 +44,17 @@ typedef struct
 extern position_t pos;
 extern history_t* his;
 
-void   print();
-void   reset();
-int    set_fen(const char* fen);
-void   make_move(move_t move);
-void   unmake_move();
-move_t last_move();
-int    in_check(int side);
-int    illegal();
-int    move_played();
-int    is_repetition();
+void        print();
+void        reset();
+const char* get_fen();
+int         set_fen(const char* fen);
+void        make_move(move_t move);
+void        unmake_move();
+move_t      last_move();
+int         in_check(int side);
+int         illegal();
+int         move_played();
+int         is_repetition();
 
 
 #endif

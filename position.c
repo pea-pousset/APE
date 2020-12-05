@@ -102,6 +102,89 @@ void print()
 }
 
 /*========================================================================*//**
+ *
+ *//*=========================================================================*/
+const char* get_fen()
+{
+    static char fenbuf[256];
+    char* pfen = fenbuf;
+    int r, f;
+
+    memset(fenbuf, 0, 256);
+
+    for (r = _8; r >= _1; r--)
+    {
+        int spaces = 0;
+        for (f = _A; f <= _H; f++)
+        {
+            char sq = pos.board[SQUARE(f, r)];
+            if (TYPE(sq))
+            {
+                if (spaces)
+                {
+                    *pfen++ = spaces + '0';
+                    spaces = 0;
+                }
+                *pfen = " pnbrqk"[TYPE(sq)];
+                if (COLOR(sq) == WHITE)
+                    *pfen = toupper(*pfen);
+                ++pfen;
+            }
+            else
+            {
+                ++spaces;
+            }
+        }
+
+        if (spaces)
+        {
+            *pfen++ = spaces + '0';
+        }
+
+        if (r != _1)
+            *pfen++ = '/';
+        else
+            *pfen++ = ' ';
+    }
+     
+    if (pos.side_to_move == WHITE)
+        *pfen++ = 'w';
+    else
+        *pfen++ = 'b';
+    *pfen++ = ' ';
+
+    if (pos.castle)
+    {
+        if (pos.castle & WK_CASTLE) *pfen++ = 'K';
+        if (pos.castle & WQ_CASTLE) *pfen++ = 'Q';
+        if (pos.castle & BK_CASTLE) *pfen++ = 'k';
+        if (pos.castle & BQ_CASTLE) *pfen++ = 'q';
+    }
+    else
+    {
+        *pfen++ = '-';
+    }
+    *pfen++ = ' ';
+
+    if (pos.en_passant != NOSQUARE)
+    {
+        *pfen++ = FILE(pos.en_passant) + 'a';
+        *pfen++ = RANK(pos.en_passant) + '1';
+    }
+    else
+    {
+        *pfen++ = '-';
+    }
+    *pfen++ = ' ';
+    
+    str_iappend(&pfen, pos.half_moves);
+    *pfen++ = ' ';
+    str_iappend(&pfen, pos.nmove);
+    
+    return fenbuf;
+}
+
+/*========================================================================*//**
  * \brief Met les pieces dans la position initiale
  *//*=========================================================================*/
 void reset()

@@ -104,3 +104,18 @@ move_t str_to_move(const char* str)
 
     return err;
 }
+
+void str_iappend(char** str, unsigned int i)
+{
+    char buf[16] = { 0 };
+    char* pbuf = buf;
+    int idx;
+    
+    do
+        *pbuf++ = (i % 10) + '0';
+    while ((i /= 10));
+    
+    for (idx = 0; idx < strlen(buf); ++idx)
+        *((*str)++) = *(--pbuf);
+    **str = '\0';
+}

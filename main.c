@@ -312,7 +312,7 @@ void bench()
     int st = stop_time;
     int sd = stop_depth;
     stop_time = INF_TIME;
-    stop_depth = 6;
+    stop_depth = 7;
     int best_time = INF_TIME * 1000;
     int worst_time = 0;
     for (int i = 0; i < 5; i++)
